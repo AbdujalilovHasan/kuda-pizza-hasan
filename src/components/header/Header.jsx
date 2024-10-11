@@ -3,8 +3,10 @@ import { useState, useEffect } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import logo from '../../assets/images/logo.png';
 import style from './Header.module.css';
+// import { useCart } from "../../contexts/CartContext";
 
 const Header = () => {
+    // const cartCount = useCart();
     const [time, setTime] = useState(30 * 60);
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -107,6 +109,32 @@ const Header = () => {
                                     <li><Link to="/">Десерты</Link></li>
                                     <li><Link to="/">Соусы</Link></li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div className={style["bottom-nav-right"]}>
+                            <div className={style["cart-page"]}>
+                                <Link to="/CartPage">
+                                    <div className={style["box"]}>
+                                        <div className={style["icon"]}>
+                                            <i className="bi bi-basket2-fill"></i>
+                                        </div>
+                                        <div className={style["content"]}>
+                                            {/* {cartCount} ₽ */} ₽
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="likes-page">
+                                <Link to="/CartPage">
+                                    <div className={style["box"]}>
+                                        <div className={style["icon"]}>
+                                            <i className="bi bi-heart"></i>
+                                        </div>
+                                        <div className={style["content"]}>
+                                            likes
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </div>

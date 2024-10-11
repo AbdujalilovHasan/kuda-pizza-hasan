@@ -155,3 +155,21 @@
 .dropdown-content.show {
     display: block;
 }
+
+.box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #FF7010;
+    padding: 8px 16px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.bottom-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

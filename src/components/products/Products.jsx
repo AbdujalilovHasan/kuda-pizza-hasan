@@ -1,7 +1,10 @@
 import { products } from '../../constants/products';
 import style from './Products.module.css';
+// import { useCart } from '../../contexts/CartContext'; // useCart ni import qilish
 
 function Products() {
+    // const { addToCart } = useCart(); // addToCart funksiyasini olish
+
     const categories = [...new Set(products.map(product => product.category))];
 
     return (
@@ -20,6 +23,7 @@ function Products() {
                                     <p>{product.description}</p>
                                     <div className={style["bottom-row"]}>
                                         <div className={style["btn"]}>
+                                            {/* <button onClick={() => addToCart(product)}>Выбрать</button> */}
                                             <button>Выбрать</button>
                                         </div>
                                         <div className={style["price"]}>
@@ -48,7 +52,7 @@ function getCategoryTitle(category) {
         case 'drinks':
             return 'Напитки';
         default:
-            return category; 
+            return category;
     }
 }
 
