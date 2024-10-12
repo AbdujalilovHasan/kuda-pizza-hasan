@@ -1,23 +1,56 @@
-// import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
-// export const ProductContext = createContext();
+// Create ProductContext
+export const ProductContext = createContext();
 
-// const ContextProvider = ({ children }) => {
-//     const [cart, setCart] = useState([]);
+const CartProvider = ({ children }) => {
+    // Load cart from local storage
+    const [cart, setCart] = useState(() => {
+        const savedCart = localStorage.getItem('cart');
+        return savedCart ? JSON.parse(savedCart) : [];
+    });
 
-//     const addedCart = (id) => {
-//         if (!cart.includes(id)) {
-//             setCart((prevCart) => [...prevCart, id]);
-//         }
-//     };
+    useEffect(() => {
+        // Save cart to local storage whenever it changes
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
 
-//     const state = { cart, addedCart };
+    const addToCart = (product) => {
+        const existingProduct = cart.find(item => item.id === product.id);
+        if (existingProduct) {
+            // Check if stock is available before increasing count
+            if (existingProduct.count < product.stock) {
+                setCart(cart.map(item =>
+                    item.id === product.id ? { ...existingProduct, count: existingProduct.count + 1 } : item
+                ));
+            } else {
+                alert('Cannot add more of this product. Stock limit reached.');
+            }
+        } else {
+            setCart([...cart, { ...product, count: 1 }]);
+        }
+    };
 
-//     return (
-//         <ProductContext.Provider value={state}>
-//             {children}
-//         </ProductContext.Provider>
-//     );
-// };
+    const removeFromCart = (product) => {
+        const existingProduct = cart.find(item => item.id === product.id);
+        if (existingProduct && existingProduct.count > 1) {
+            setCart(cart.map(item =>
+                item.id === product.id ? { ...existingProduct, count: existingProduct.count - 1 } : item
+            ));
+        } else {
+            setCart(cart.filter(item => item.id !== product.id));
+        }
+    };
 
-// export default ContextProvider;
+    const clearCart = () => {
+        setCart([]);
+    };
+
+    return (
+        <ProductContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+            {children}
+        </ProductContext.Provider>
+    );
+};
+
+export default CartProvider;

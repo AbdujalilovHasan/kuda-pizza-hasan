@@ -1,3 +1,7 @@
+.bg-white {
+    background: #fff;
+}
+
 .nav-bottom {
     padding: 10px 0px;
     width: 100%;
@@ -17,7 +21,8 @@
 }
 
 .cont {
-    max-width: 1100px;
+    background: red;
+    max-width: 1250px;
     width: 100%;
     margin: 0 auto;
     background: #fff;
@@ -28,7 +33,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
 }
 
 .nav-left {
@@ -175,4 +179,20 @@
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.nav-left .links {
+    display: none;
+}
+
+.nav-bottom.scrolled .links {
+    display: flex;
+}
+
+a .logo-text {
+    color: #191919;
+}
+
+a {
+    text-decoration: none;
 }

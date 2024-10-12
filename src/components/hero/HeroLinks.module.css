@@ -6,12 +6,10 @@
 }
 
 .card {
-    width: 115px;
-    height: 104px;
     background: #fff;
     border-radius: 12px;
     border: 1px solid #F0F0F0;
-    padding: 20px;
+    padding: 20px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;

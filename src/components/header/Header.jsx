@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import logo from '../../assets/images/logo.png';
 import style from './Header.module.css';
-// import { useCart } from "../../contexts/CartContext";
+import { ProductContext } from '../../contexts/CartContext';
 
 const Header = () => {
-    // const cartCount = useCart();
+    const { totalItems = 0, totalPrice = 0 } = useContext(ProductContext);
     const [time, setTime] = useState(30 * 60);
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -41,44 +41,46 @@ const Header = () => {
     };
 
     return (
-        <div className="bg-white">
-            <div className={`${style["cont"]} ${"w-75 mx-auto"}`}>
-                <div className={style["nav-top"]}>
-                    <div className={style['row']}>
-                        <div className={style["nav-left"]}>
-                            <div className={style['address']}>
-                                <div className={style["location-ion"]}>
-                                    <i style={{ color: '#FF7010', fontSize: '20px' }} className="bi bi-geo-alt"></i>
-                                </div>
-                                <div className={style["dropdown"]}>
-                                    <button onClick={toggleDropdown}>
-                                        Moskva
-                                    </button>
-                                    <div className={`${style["dropdown-content"]} ${dropdownOpen ? style["show"] : ""}`}>
-                                        <Link to="/">Moskva</Link>
-                                        <Link to="/">Toshkent</Link>
-                                        <Link to="/">New York</Link>
-                                        <Link to="/">London</Link>
+        <div className={style["bg-white"]}>
+            <div className={style["cont"]}>
+                <div>
+                    <div className={style["nav-top"]}>
+                        <div className={style['row']}>
+                            <div className={style["nav-left"]}>
+                                <div className={style['address']}>
+                                    <div className={style["location-ion"]}>
+                                        <i style={{ color: '#FF7010', fontSize: '20px' }} className="bi bi-geo-alt"></i>
+                                    </div>
+                                    <div className={style["dropdown"]}>
+                                        <button onClick={toggleDropdown}>
+                                            Moskva
+                                        </button>
+                                        <div className={`${style["dropdown-content"]} ${dropdownOpen ? style["show"] : ""}`}>
+                                            <Link to="/">Moskva</Link>
+                                            <Link to="/">Toshkent</Link>
+                                            <Link to="/">New York</Link>
+                                            <Link to="/">London</Link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className={style["testing-address"]}>
-                                <Link to="/check-address">Проверить адрес</Link>
-                            </div>
-                            <div className={style["time"]}>
-                                <p>Среднее время доставки*: <span>{formatTime(time)}</span></p>
-                            </div>
-                        </div>
-                        <div className={style["nav-right"]}>
-                            <div className={style["time-work"]}>
-                                <p>Время работы: с 11:00 до 23:00</p>
-                            </div>
-                            <div className={style["account"]}>
-                                <div className={style["user-icon"]}>
-                                    <i style={{ color: '#FF7010', fontSize: '20px' }} className="bi bi-person"></i>
+                                <div className={style["testing-address"]}>
+                                    <Link to="/check-address">Проверить адрес</Link>
                                 </div>
-                                <div className={style["lacation-content"]}>
-                                    <p>Войти в аккаунт</p>
+                                <div className={style["time"]}>
+                                    <p>Среднее время доставки*: <span>{formatTime(time)}</span></p>
+                                </div>
+                            </div>
+                            <div className={style["nav-right"]}>
+                                <div className={style["time-work"]}>
+                                    <p>Время работы: с 11:00 до 23:00</p>
+                                </div>
+                                <div className={style["account"]}>
+                                    <div className={style["user-icon"]}>
+                                        <i style={{ color: '#FF7010', fontSize: '20px' }} className="bi bi-person"></i>
+                                    </div>
+                                    <div className={style["lacation-content"]}>
+                                        <p>Войти в аккаунт</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,55 +88,59 @@ const Header = () => {
                 </div>
             </div>
             <hr className={style['hr']} />
-            <div className={`${style["cont"]} ${"w-75 mx-auto"}`}>
-                <div className={`${style["nav-bottom"]} ${isScrolled ? style["scrolled"] : ""}`}>
-                    <div className={style["row"]}>
-                        <div className={style["nav-left"]}>
-                            <div className={style["logo"]}>
-                                <div className={style["logo-icon"]}>
-                                    <img src={logo} alt="" />
-                                </div>
-                                <div className={style["logo-text"]}>
-                                    Куда пицца
-                                </div>
-                            </div>
-                            <div className={style["links"]}>
-                                <ul>
-                                    <li><Link to="/">Акции</Link></li>
-                                    <li><Link to="/">Пицца</Link></li>
-                                    <li><Link to="/">Суши</Link></li>
-                                    <li><Link to="/">Напитки</Link></li>
-                                    <li><Link to="/">Закуски</Link></li>
-                                    <li><Link to="/">Комбо</Link></li>
-                                    <li><Link to="/">Десерты</Link></li>
-                                    <li><Link to="/">Соусы</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className={style["bottom-nav-right"]}>
-                            <div className={style["cart-page"]}>
-                                <Link to="/CartPage">
-                                    <div className={style["box"]}>
-                                        <div className={style["icon"]}>
-                                            <i className="bi bi-basket2-fill"></i>
-                                        </div>
-                                        <div className={style["content"]}>
-                                            {/* {cartCount} ₽ */} ₽
-                                        </div>
+            <div className={style["cont"]}>
+                <div>
+                    <div className={`${style["nav-bottom"]} ${isScrolled ? style["scrolled"] : ""}`}>
+                        <div className={style["row"]}>
+                            <div className={style["nav-left"]}>
+                                <div className={style["logo"]}>
+                                    <div className={style["logo-icon"]}>
+                                        <img src={logo} alt="" />
                                     </div>
-                                </Link>
+                                    <Link to='/'>
+                                        <div className={style["logo-text"]}>
+                                            Куда пицца
+                                        </div>
+                                    </Link>
+                                </div>
+                                <div className={`${style["links"]} ${isScrolled ? '' : style['hidden']}`}>
+                                    <ul>
+                                        <li><Link to="/">Акции</Link></li>
+                                        <li><Link to="/">Пицца</Link></li>
+                                        <li><Link to="/">Суши</Link></li>
+                                        <li><Link to="/">Напитки</Link></li>
+                                        <li><Link to="/">Закуски</Link></li>
+                                        <li><Link to="/">Комбо</Link></li>
+                                        <li><Link to="/">Десерты</Link></li>
+                                        <li><Link to="/">Соусы</Link></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div className="likes-page">
-                                <Link to="/CartPage">
-                                    <div className={style["box"]}>
-                                        <div className={style["icon"]}>
-                                            <i className="bi bi-heart"></i>
+                            <div className={style["bottom-nav-right"]}>
+                                <div className={style["cart-page"]}>
+                                    <Link to="/cart">
+                                        <div className={style["box"]}>
+                                            <div className={style["icon"]}>
+                                                <i className="bi bi-basket2-fill"></i>
+                                            </div>
+                                            <div className={style["content"]}>
+                                                ({totalItems}) ₽{totalPrice}
+                                            </div>
                                         </div>
-                                        <div className={style["content"]}>
-                                            likes
+                                    </Link>
+                                </div>
+                                <div className="likes-page">
+                                    <Link to="/cart">
+                                        <div className={style["box"]}>
+                                            <div className={style["icon"]}>
+                                                <i className="bi bi-heart"></i>
+                                            </div>
+                                            <div className={style["content"]}>
+                                                likes
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

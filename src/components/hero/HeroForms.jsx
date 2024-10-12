@@ -1,15 +1,15 @@
-import style from './HeroLinks.module.css'
+import style from './HeroForms.module.css'
 
 const HeroForm = () => {
     return (
         <div className={style['form']}>
-            <div className={style['form-row']}>
-                <p className={style['form-text']}>Проверить адрес доставки</p>
+            <div className={style['row']}>
+                <p>Проверить адрес доставки</p>
                 <div className={style['input']}>
-                    <i style={{ color: '#FF7010', fontSize: '20px' }} className="bi bi-geo-alt"></i>
+                    <i className="bi bi-geo-alt"></i>
                     <input placeholder='Адрес' type='text' />
                 </div>
-                <button className={style['form-btn']}>Проверить</button>
+                <button className={style['btn']}>Проверить</button>
             </div>
         </div>
     )

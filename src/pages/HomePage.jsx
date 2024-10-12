@@ -7,7 +7,7 @@ import Products from "../components/products/Products";
 const HomePage = () => {
   return (
     <div>
-      <div style={{maxWidth: '1250px', width: '100%'}} className="w-75 mx-auto">
+      <div style={{maxWidth: '1250px', width: '100%', margin: '0 auto'}} className="w-75 mx-auto">
         <HeroLinks />
         <HeroDiscount />
         <HeroForm />
