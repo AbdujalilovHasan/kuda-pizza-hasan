@@ -1,9 +1,11 @@
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './App'; 
 import CartProvider from './contexts/CartContext';
-import '../src/index.css'
+import './index.css';
 
-const root = createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+
+const root = createRoot(rootElement);
 root.render(
     <CartProvider>
         <App />

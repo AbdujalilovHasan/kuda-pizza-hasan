@@ -17,16 +17,13 @@ const CartPage = () => {
             {cart.map(item => (
               <div key={item.id} style={styles.cartItem}>
                 <h2>{item.name}</h2>
-
                 <button onClick={() => addToCart(item)} style={styles.button}>+</button>
                 <p>{item.price} ₽ x {item.count}</p>
                 <button onClick={() => removeFromCart(item)} style={styles.button}>-</button>
-
                 <button onClick={() => removeFromCart(item)} style={styles.removeButton}>Remove</button>
               </div>
             ))}
             <h2>Total: {totalPrice} ₽</h2>
-
             <button onClick={clearCart} style={styles.emptyCartButton}>Empty Cart</button>
           </div>
         )}
@@ -37,13 +34,13 @@ const CartPage = () => {
 
 const styles = {
   container: {
-    overflowY: 'hidden', // Fixed typo here
+    overflowY: 'hidden', 
     background: '#f8f9fa',
     padding: '20px',
     minHeight: '100vh',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-start', // Aligns items to the start
+    alignItems: 'flex-start', 
   },
   cartWrapper: {
     maxWidth: '1250px',
@@ -52,7 +49,7 @@ const styles = {
     background: '#fff',
     borderRadius: '8px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    marginTop: '30px', // Add margin top to create space
+    marginTop: '30px', 
   },
   cartItem: {
     border: '1px solid #ccc',

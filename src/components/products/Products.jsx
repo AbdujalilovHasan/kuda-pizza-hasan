@@ -1,10 +1,9 @@
 import { products } from '../../constants/products';
-import style from './Products.module.css'; 
+import style from './Products.module.css';
 import { useCart } from './UseCart';
 
 function Products() {
     const { addToCart, removeFromCart, cart } = useCart();
-
     const categories = [...new Set(products.map(product => product.category))];
 
     return (
@@ -12,32 +11,51 @@ function Products() {
             {categories.map((category) => (
                 <div key={category} className={style["category-section"]}>
                     <h2 className={style["category-title"]}>{getCategoryTitle(category)}</h2>
-
                     <div className={style["row"]}>
                         {products
                             .filter(product => product.category === category)
                             .map((product) => {
-                                const inCart = cart.find(item => item.id === product.id); // Check if product is in cart
+                                const inCart = cart.find(item => item.id === product.id);
 
                                 return (
-                                    <div key={product.id} className={style["product-card"]}>
-                                        <img src={product.image} alt={product.name} />
+                                    <div
+                                        key={product.id}
+                                        className={`${style["product-card"]} ${inCart ? style["in-cart"] : ''}`}
+                                    >
+                                        <img src={product.image} alt={`Изображение продукта: ${product.name}`} />
                                         <h3>{product.name}</h3>
                                         <p>{product.description}</p>
                                         <div className={style["bottom-row"]}>
-                                            <div className={style["btn"]}>
-                                                {inCart ? (
-                                                    <div>
-                                                        <button onClick={() => removeFromCart(product)}>-</button>
-                                                        <span>{inCart.count}</span>
-                                                        <button onClick={() => addToCart(product)}>+</button>
-                                                    </div>
-                                                ) : (
-                                                    <button onClick={() => addToCart(product)}>Выбрать</button>
-                                                )}
-                                            </div>
+                                            {inCart ? (
+                                                <div className={style['count']}>
+                                                    <button
+                                                        className={style['count-btn']}
+                                                        onClick={() => removeFromCart(product)}
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <span>{inCart.count}</span>
+                                                    <button
+                                                        className={style['count-btn']}
+                                                        onClick={() => addToCart(product)}
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <div className={style["btn"]}>
+                                                    <button
+                                                        className={style['select-btn']}
+                                                        onClick={() => addToCart(product)}
+                                                    >
+                                                        Выбрать
+                                                    </button>
+                                                </div>
+                                            )}
                                             <div className={style["price"]}>
-                                                <p style={{ color: '#FF7010', fontWeight: '600' }}>{product.price} ₽</p>
+                                                <p style={{ color: '#FF7010', fontWeight: '600' }}>
+                                                    {product.price} ₽
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -49,6 +67,7 @@ function Products() {
         </div>
     );
 }
+
 
 function getCategoryTitle(category) {
     switch (category) {
@@ -67,4 +86,4 @@ function getCategoryTitle(category) {
     }
 }
 
-export default Products;
+export default Products;    

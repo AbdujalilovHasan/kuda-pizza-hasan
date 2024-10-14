@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import logo from '../../assets/images/logo.png';
 import style from './Header.module.css';
 import { ProductContext } from '../../contexts/CartContext';
+import { categories } from '../../constants/categories';
 
 const Header = () => {
+    const location = useLocation();
     const { totalItems = 0, totalPrice = 0 } = useContext(ProductContext);
     const [time, setTime] = useState(30 * 60);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -35,7 +37,6 @@ const Header = () => {
     }, []);
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
@@ -105,14 +106,13 @@ const Header = () => {
                                 </div>
                                 <div className={`${style["links"]} ${isScrolled ? '' : style['hidden']}`}>
                                     <ul>
-                                        <li><Link to="/">Акции</Link></li>
-                                        <li><Link to="/">Пицца</Link></li>
-                                        <li><Link to="/">Суши</Link></li>
-                                        <li><Link to="/">Напитки</Link></li>
-                                        <li><Link to="/">Закуски</Link></li>
-                                        <li><Link to="/">Комбо</Link></li>
-                                        <li><Link to="/">Десерты</Link></li>
-                                        <li><Link to="/">Соусы</Link></li>
+                                        {categories.map(category => (
+                                            <li key={category.path}>
+                                                <Link to={category.path} className={location.pathname === category.path ? style.active : ""}>
+                                                    {category.name}
+                                                </Link>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
                             </div>
@@ -130,13 +130,13 @@ const Header = () => {
                                     </Link>
                                 </div>
                                 <div className="likes-page">
-                                    <Link to="/cart">
+                                    <Link to="/favorites">
                                         <div className={style["box"]}>
                                             <div className={style["icon"]}>
                                                 <i className="bi bi-heart"></i>
                                             </div>
                                             <div className={style["content"]}>
-                                                likes
+                                                Избранное
                                             </div>
                                         </div>
                                     </Link>

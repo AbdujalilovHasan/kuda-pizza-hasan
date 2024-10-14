@@ -1,25 +1,26 @@
 import { createContext, useState, useEffect } from 'react';
 
-// Create ProductContext
 export const ProductContext = createContext();
 
 const CartProvider = ({ children }) => {
-    // Load cart from local storage
     const [cart, setCart] = useState(() => {
         const savedCart = localStorage.getItem('cart');
         return savedCart ? JSON.parse(savedCart) : [];
     });
 
     useEffect(() => {
-        // Save cart to local storage whenever it changes
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
 
     const addToCart = (product) => {
         const existingProduct = cart.find(item => item.id === product.id);
+        const productStock = typeof product.stock === 'number' ? product.stock : 12;
+
+        console.log("Product stock: ", productStock);
+        console.log("Existing product count: ", existingProduct ? existingProduct.count : 'N/A');
+
         if (existingProduct) {
-            // Check if stock is available before increasing count
-            if (existingProduct.count < product.stock) {
+            if (existingProduct.count < productStock) {
                 setCart(cart.map(item =>
                     item.id === product.id ? { ...existingProduct, count: existingProduct.count + 1 } : item
                 ));
