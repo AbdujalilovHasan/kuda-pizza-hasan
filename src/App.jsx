@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import CartProvider from './contexts/CartContext';
+// import CartProvider from './contexts/CartContext';
 import Header from './components/header/Header';
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
